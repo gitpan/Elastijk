@@ -1,0 +1,13 @@
+Changes
+LICENSE
+cpanfile
+lib/Elastijk.pm
+minil.toml
+t/build-hijk-request-args.t
+t/live-index-create-delete.t
+t/live-search-and-stats.t
+t/request-raw.t
+Build.PL
+META.json
+META.yml
+MANIFEST
