@@ -28,14 +28,18 @@ no_index:
 provides:
   Elastijk:
     file: lib/Elastijk.pm
-    version: 0.01
+    version: 0.02
+  Elastijk::oo:
+    file: lib/Elastijk/oo.pm
+    version: 0
 requires:
-  Hijk: 0.01
+  Hijk: 0.05
+  JSON: 2.59
 resources:
   bugtracker: https://github.com/gugod/Elastijk/issues
   homepage: https://github.com/gugod/Elastijk
   repository: git://github.com/gugod/Elastijk.git
-version: 0.01
+version: 0.02
 x_authority: cpan:GUGOD
 x_contributors:
   - 'borislav nikolov <jack@sofialondonmoskva.com>'

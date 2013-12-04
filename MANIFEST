@@ -2,10 +2,14 @@ Changes
 LICENSE
 cpanfile
 lib/Elastijk.pm
+lib/Elastijk/oo.pm
 minil.toml
 t/build-hijk-request-args.t
 t/live-index-create-delete.t
+t/live-oo-index-and-search.t
+t/live-oo-index-create-and-delete.t
 t/live-search-and-stats.t
+t/oo-new.t
 t/request-raw.t
 Build.PL
 META.json

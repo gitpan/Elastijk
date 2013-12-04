@@ -43,7 +43,8 @@
       },
       "runtime" : {
          "requires" : {
-            "Hijk" : "0.01"
+            "Hijk" : "0.05",
+            "JSON" : "2.59"
          }
       },
       "test" : {
@@ -55,7 +56,10 @@
    "provides" : {
       "Elastijk" : {
          "file" : "lib/Elastijk.pm",
-         "version" : "0.01"
+         "version" : "0.02"
+      },
+      "Elastijk::oo" : {
+         "file" : "lib/Elastijk/oo.pm"
       }
    },
    "release_status" : "stable",
@@ -69,7 +73,7 @@
          "web" : "https://github.com/gugod/Elastijk"
       }
    },
-   "version" : "0.01",
+   "version" : "0.02",
    "x_authority" : "cpan:GUGOD",
    "x_contributors" : [
       "borislav nikolov <jack@sofialondonmoskva.com>",
