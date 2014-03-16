@@ -4,7 +4,7 @@
       "=over 4"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.9.0",
+   "generated_by" : "Minilla/v0.12.0",
    "license" : [
       "mit"
    ],
@@ -43,7 +43,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Hijk" : "0.05",
+            "Hijk" : "0.09",
             "JSON" : "2.59"
          }
       },
@@ -56,7 +56,7 @@
    "provides" : {
       "Elastijk" : {
          "file" : "lib/Elastijk.pm",
-         "version" : "0.02"
+         "version" : "0.03"
       },
       "Elastijk::oo" : {
          "file" : "lib/Elastijk/oo.pm"
@@ -73,7 +73,7 @@
          "web" : "https://github.com/gugod/Elastijk"
       }
    },
-   "version" : "0.02",
+   "version" : "0.03",
    "x_authority" : "cpan:GUGOD",
    "x_contributors" : [
       "borislav nikolov <jack@sofialondonmoskva.com>",
