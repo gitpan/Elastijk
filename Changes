@@ -1,3 +1,9 @@
+0.04 2014-05-09T06:32:28Z
+
+0.04 2014-05-09T06:30:43Z
+
+  - Add "request" and "request_raw" method to Elastijk::oo
+
 0.03 2014-03-16T22:35:57Z
 
   - Add "search" and "uri_search" method.

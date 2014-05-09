@@ -9,7 +9,7 @@ configure_requires:
   CPAN::Meta::Prereqs: 0
   Module::Build: 0.38
 dynamic_config: 0
-generated_by: 'Minilla/v0.12.0, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Minilla/v0.15.2, CPAN::Meta::Converter version 2.120921'
 license: mit
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -28,7 +28,7 @@ no_index:
 provides:
   Elastijk:
     file: lib/Elastijk.pm
-    version: 0.03
+    version: 0.04
   Elastijk::oo:
     file: lib/Elastijk/oo.pm
     version: 0
@@ -39,7 +39,7 @@ resources:
   bugtracker: https://github.com/gugod/Elastijk/issues
   homepage: https://github.com/gugod/Elastijk
   repository: git://github.com/gugod/Elastijk.git
-version: 0.03
+version: 0.04
 x_authority: cpan:GUGOD
 x_contributors:
   - 'borislav nikolov <jack@sofialondonmoskva.com>'

@@ -10,10 +10,7 @@ t/live-oo-index-and-search.t
 t/live-oo-index-create-and-delete.t
 t/live-search-and-stats.t
 t/oo-new.t
-t/oo-search.t
-t/oo-uri-search.t
 t/request-raw.t
-t/test_context.pl
 Build.PL
 META.json
 META.yml
