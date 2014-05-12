@@ -28,7 +28,7 @@ no_index:
 provides:
   Elastijk:
     file: lib/Elastijk.pm
-    version: 0.04
+    version: 0.05
   Elastijk::oo:
     file: lib/Elastijk/oo.pm
     version: 0
@@ -39,7 +39,7 @@ resources:
   bugtracker: https://github.com/gugod/Elastijk/issues
   homepage: https://github.com/gugod/Elastijk
   repository: git://github.com/gugod/Elastijk.git
-version: 0.04
+version: 0.05
 x_authority: cpan:GUGOD
 x_contributors:
   - 'borislav nikolov <jack@sofialondonmoskva.com>'

@@ -57,7 +57,7 @@
    "provides" : {
       "Elastijk" : {
          "file" : "lib/Elastijk.pm",
-         "version" : "0.04"
+         "version" : "0.05"
       },
       "Elastijk::oo" : {
          "file" : "lib/Elastijk/oo.pm"
@@ -74,7 +74,7 @@
          "web" : "https://github.com/gugod/Elastijk"
       }
    },
-   "version" : "0.04",
+   "version" : "0.05",
    "x_authority" : "cpan:GUGOD",
    "x_contributors" : [
       "borislav nikolov <jack@sofialondonmoskva.com>",

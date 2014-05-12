@@ -26,126 +26,59 @@ sub request_raw {
 }
 
 sub index {
-    my $self = shift;
-    my $doc  = pop;
-    my $type = @_ ? $_[0] : $self->{type};
-
-    if (ref($doc) eq 'ARRAY') {
-        my $body = "";
-        for my $d (@$doc) {
-            if (ref($d) eq 'ARRAY') {
-                $body .= $Elastijk::JSON->encode($d->[0]) . "\n"
-                    . $Elastijk::JSON->encode($d->[1]) . "\n";
-            }
-            elsif (ref($d) eq 'HASH') {
-                $body .= '{"index":{}}' . "\n"
-                    . $Elastijk::JSON->encode($d) . "\n";
-            }
-        }
-
-        my ($status, $res) = $self->request_raw(
-            method => "POST",
-            defined($type) ? ( type => $type ) : (),
-            command => "_bulk",
-            body => $body,
-        );
-        $res = $Elastijk::JSON->decode($res);
-        return $res;
-    } elsif (ref($doc) eq 'HASH') {
-        my ($status, $res) = $self->request(
-            method => "POST",
-            defined($type) ? ( type => $type ) : (),
-            body => $doc,
-        );
-        return $res;
-    }
-
-    return undef;
+    my ($self, %args) = @_;
+    return $self->request(method => ( exists $args{id} ? "PUT" : "POST" ), %args);
 }
 
 sub get {
-    my ($self, %spec) = @_;
-    my ($status, $res) = $self->request(
-        exists($spec{index}) ? ( index => $spec{index} ) : (),
-        exists($spec{type})  ? ( type  => $spec{type}  ) : (),
-        command => $spec{id},
-    );
-    return $res;
+    my $self = shift;
+    return $self->request(method => "GET", @_);
 }
 
-sub exists {
-    my ($self, %spec) = @_;
-
-    if ( !ref($spec{index}) ) {
-        my ($status, undef) = $self->request(
-            method => "HEAD",
-            exists($spec{index}) ? ( index => $spec{index} ) : (),
-            exists($spec{type})  ? ( type  => $spec{type}  ) : (),
-        );
-
-        return $status eq '200';
-    }
-
-    return undef;
-}
-
-sub create {
-    my ($self, %spec) = @_;
-    my $res = {};
-    for my $index_name ( keys %{ $spec{index} } ) {
-        my ($status, $body) = $self->request(
-            index => $index_name,
-            method => "PUT",
-            body => $spec{index}{$index_name}
-        );
-        $res->{$index_name} = { status => $status, body => $body }
-    }
-
-    return $res;
+sub put {
+    my $self = shift;
+    $self->request(method => "PUT", @_);
 }
 
 sub delete {
-    my ($self, %spec) = @_;
-    my $res = {};
-    my $index_name = $spec{index};
-    my ($status, $body) = $self->request(
-        index => $index_name,
-        method => "DELETE"
-    );
-    $res->{$index_name} = { status => $status, body => $body };
-    return $res;
+    my $self = shift;
+    return $self->request(method => "DELETE", @_);
+}
+
+sub head {
+    my $self = shift;
+    return $self->request(method => "HEAD", @_);
+}
+
+sub post {
+    my $self = shift;
+    return $self->request(method => "POST", @_);
+}
+
+sub exists {
+    my $self = shift;
+    my ($status,$res) = $self->request(method => "HEAD", @_);
+    return ($status,'2' eq substr($status,0,1));
 }
 
 sub search {
     my $self = shift;
-    my %args = @_;
-    my $search_type = delete $args{search_type};
-    my ($status, $body) = $self->request(
-        command => "_search",
-        $search_type ? (
-            uri_param => { search_type => $search_type }
-        ) : (),
-        body => \%args,
-    );
+    return $self->request(command => "_search", method => "GET", @_);
+}
 
-    return {
-        status => $status,
-        body => $body,
-    }
+sub count {
+    my $self = shift;
+    my ($status,$res) = $self->request(command => "_count", method => "GET", @_);
+    return ($status, $res->{count});
 }
 
 
-sub uri_search {
+sub bulk {
     my ($self, %args) = @_;
-    my ($status, $body) = $self->request(
-        command => "_search",
-        uri_param => \%args,
-    );
-    return {
-        status => $status,
-        body => $body,
-    }
+    $args{body} = join("", map { $Elastijk::JSON->encode($_)."\n" } @{$args{body}});
+    my ($status,$res) = $self->request_raw(method => "POST", command => "_bulk", %args);
+    $res = $Elastijk::JSON->decode($res) if $res;
+    return ($status, $res);
 }
-
 
 1;
