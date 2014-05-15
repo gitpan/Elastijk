@@ -4,7 +4,7 @@
       "=over 4"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.15.2",
+   "generated_by" : "Minilla/v1.0.0",
    "license" : [
       "mit"
    ],
@@ -57,7 +57,7 @@
    "provides" : {
       "Elastijk" : {
          "file" : "lib/Elastijk.pm",
-         "version" : "0.05"
+         "version" : "0.06"
       },
       "Elastijk::oo" : {
          "file" : "lib/Elastijk/oo.pm"
@@ -74,7 +74,7 @@
          "web" : "https://github.com/gugod/Elastijk"
       }
    },
-   "version" : "0.05",
+   "version" : "0.06",
    "x_authority" : "cpan:GUGOD",
    "x_contributors" : [
       "borislav nikolov <jack@sofialondonmoskva.com>",

@@ -1,10 +1,10 @@
 package Elastijk;
 use strict;
 use warnings;
-our $VERSION = "0.05";
+our $VERSION = "0.06";
 
 use JSON ();
-use URI::Escape qw(uri_escape);
+use URI::Escape qw(uri_escape_utf8);
 use Hijk;
 
 our $JSON = JSON->new->utf8;
@@ -12,24 +12,17 @@ our $JSON = JSON->new->utf8;
 sub _build_hijk_request_args {
     my $args = $_[0];
     my ($path, $qs, $uri_param);
-    $path = "/". join("/", grep { defined } @{$args}{qw(index type id command)});
+    $path = "/". join("/", map { defined($_) ? ( uri_escape_utf8($_) ) : () } @{$args}{qw(index type id command)});
     if ($args->{uri_param}) {
-        $qs =  join('&', map { uri_escape($_) . "=" . uri_escape($args->{uri_param}{$_}) } keys %{$args->{uri_param}});
+        $qs =  join('&', map { uri_escape_utf8($_) . "=" . uri_escape_utf8($args->{uri_param}{$_}) } keys %{$args->{uri_param}});
     }
-
     return {
         method => $args->{method} || 'GET',
         host   => $args->{host}   || 'localhost',
         port   => $args->{port}   || '9200',
-        !$path ?() :(
-            path   => $path
-        ),
-        !$qs ?() :(
-            query_string => $qs
-        ),
-        !$args->{body} ?() :(
-            body => (ref($args->{body}) ? $JSON->encode($args->{body}) : $args->{body})
-        ),
+        path   => $path,
+        $qs?( query_string => $qs) :(),
+        (map { (exists $args->{$_})?( $_ => $args->{$_} ) :() } qw(connect_timeout read_timeout head body socket_cache on_connect)),
     }
 }
 
