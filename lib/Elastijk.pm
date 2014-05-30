@@ -1,7 +1,7 @@
 package Elastijk;
 use strict;
 use warnings;
-our $VERSION = "0.07";
+our $VERSION = "0.08";
 
 use JSON ();
 use URI::Escape qw(uri_escape_utf8);
@@ -40,7 +40,7 @@ sub request {
 sub request_raw {
     my $args = _build_hijk_request_args($_[0]);
     my $res = Hijk::request($args);
-    return $res->{status}, $res->{body};
+    return (exists $res->{error}) ? (0, '{"error":1,"hijk_error":'.$res->{error}.'}') : ($res->{status}, $res->{body});
 }
 
 sub new {
@@ -260,6 +260,30 @@ to check the existence of different things:
 
 See also L<http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-exists.html> ,
 L<http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/indices-types-exists.html#indices-types-exists> , and L<http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/doc-exists.html>
+
+=head2 scan_scroll( ..., on_response => sub {} )
+
+A way to perform L<scan and scroll|http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/scan-scroll.html>.
+
+The boilerplate to use it is something like:
+
+    $es->scan_scroll(
+        index => "tweet",
+        body => { query => { match_all => {} }, size => 1000 },
+        on_response => sub {
+            my ($status,$res) = @_;
+            for my $hit (@{ $res->{hits}{hits} }) {
+                ...
+            }
+        }
+    );
+
+The "search_type" is forced to be "scan" in this method.
+
+The very last value to the C<on_response> key is a callback subroutine that is
+called after each HTTP request. The arguments are HTTP status code and response
+body hash just like other methods.
+
 
 =head1 AUTHORS
 

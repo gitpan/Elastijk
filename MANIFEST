@@ -8,10 +8,12 @@ t/build-hijk-request-args.t
 t/live-index-create-delete.t
 t/live-oo-index-and-search.t
 t/live-oo-index-create-and-delete.t
+t/live-oo-scan-scroll.t
 t/live-search-and-stats.t
 t/oo-new.t
 t/oo-usage.t
 t/request-raw.t
+t/request-with-hijk-error.t
 Build.PL
 META.json
 META.yml
